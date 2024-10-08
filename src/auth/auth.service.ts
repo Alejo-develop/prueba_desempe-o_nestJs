@@ -1,10 +1,10 @@
 import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { registerDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import { Role } from 'src/common/enum/Roles.enum';
+import { Role } from '../common/enum/Roles.enum';
 
 @Injectable()
 export class AuthService {

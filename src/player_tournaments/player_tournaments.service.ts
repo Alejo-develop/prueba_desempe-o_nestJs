@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePlayerTournamentDto } from './dto/create-player_tournament.dto';
 import { UpdatePlayerTournamentDto } from './dto/update-player_tournament.dto';
-import { GenericService } from 'src/common/services/base.service';
+import { GenericService } from '../common/services/base.service';
 import { PlayerTournament } from './entities/player_tournament.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';

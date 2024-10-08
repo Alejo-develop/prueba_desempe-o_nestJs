@@ -1,7 +1,7 @@
 import { PlayerTournament } from "src/player_tournaments/entities/player_tournament.entity";
 import { Role } from "../../common/enum/Roles.enum";
 import { BaseEntity, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Tournament } from "src/tournaments/entities/tournament.entity";
+import { Tournament } from "../../tournaments/entities/tournament.entity";
 
 @Entity()
 export class User extends BaseEntity {
