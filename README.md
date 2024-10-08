@@ -59,23 +59,32 @@ import { TournamentsModule } from './tournaments/tournaments.module';
 import { PlayerTournamentsModule } from './player_tournaments/player_tournaments.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  imports: [ 
+  imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'b1wb69iwv0wvloksunny-mysql.services.clever-cloud.com',
-      port: 3306,
-      username: 'ucfc87q6hcarwx17',
-      password: 'LAxdmR73kRpAzagdtifM',
-      database: 'b1wb69iwv0wvloksunny',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true
-    }),UsersModule, TournamentsModule, PlayerTournamentsModule, AuthModule],
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DATABASE_HOST'),
+        port: configService.get<number>('DATABASE_PORT'),
+        username: configService.get<string>('DATABASE_USER'),
+        password: configService.get<string>('DATABASE_PASSWORD'),
+        database: configService.get<string>('DATABASE_NAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
+    }),
+    UsersModule,
+    TournamentsModule,
+    PlayerTournamentsModule,
+    AuthModule,
+  ],
   controllers: [],
   providers: [],
 })
